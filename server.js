@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-// const fetch = require("node-fetch");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,13 +25,8 @@ app.post("/api/world", (req, res) => {
 app.use(express.static(path.join(__dirname, "client/build")));
 
 // Handle React routing, return all requests to React app
-// app.get("*", async function (req, res) {
-// res.sendFile(path.join(__dirname, "client/build", "index.html"));
-// res.sendFile(path.join(__dirname, "client/public", "index.html"));
-// const response = await fetch("http://localhost:3000/");
-//
-// response.body.pipe(res);
-// });
-// }
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
