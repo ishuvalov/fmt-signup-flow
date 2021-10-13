@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { Container, Paper, ThemeProvider } from "@mui/material";
+import { Container, FormHelperText, Paper, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
 import BasicInfo from "./components/steps/BasicInfo";
 import PhonePassword from "./components/steps/PhonePassword";
@@ -12,6 +12,7 @@ const steps = [<BasicInfo />, <PhonePassword />];
 
 export default function App() {
   const [isSubmitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState();
   const [currentStep, setCurrentStep] = useState(0);
   const [signupState, setSignupState] = useReducer((current, update) => ({ ...current, ...update }), {});
 
@@ -30,18 +31,31 @@ export default function App() {
   }
 
   function submit() {
+    console.log("signupState: ", signupState);
     console.log("submit!");
-    fetch("/api/register", { method: "post", body: JSON.stringify(signupState) })
-      .then((res) => res.json())
+    fetch("/api/register", {
+      method: "post",
+      body: JSON.stringify(signupState),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.json();
+      })
       .then((data) => {
         console.log(data);
         setSubmitted(true);
-      });
+      })
+      .catch((err) => setSubmitError(err.toString()));
   }
 
   return (
     <ThemeProvider theme={Theme}>
-      <MainContext.Provider value={{ handleContinue, setSignupState }}>
+      <MainContext.Provider value={{ handleContinue, signupState, setSignupState }}>
         <Header />
         <Container sx={{ display: "flex", justifyContent: "center", mt: 15 }}>
           <Paper
@@ -55,6 +69,7 @@ export default function App() {
                 {steps[currentStep]}
               </>
             )}
+            {submitError && <FormHelperText error>{submitError}</FormHelperText>}
           </Paper>
         </Container>
       </MainContext.Provider>
