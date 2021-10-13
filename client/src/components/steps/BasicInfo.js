@@ -1,4 +1,4 @@
-import {Autocomplete, Box, Button, Checkbox, TextField, Link, Typography, FormHelperText} from "@mui/material";
+import { Autocomplete, Box, Button, Checkbox, TextField, Link, Typography, FormHelperText } from "@mui/material";
 import countries from "../../countries";
 import React, { useContext, useState } from "react";
 import MainContext from "../../MainContext";
@@ -129,20 +129,21 @@ export default function BasicInfo() {
       />
       <Box
         fullWidth
-        sx={{ display: "flex", alignItems: "flex-start", mt: "30px", borderLeft: `2px solid ${errors.agreed ? errorColor: mainColor}` }}
+        sx={{
+          display: "flex",
+          alignItems: "flex-start",
+          mt: "30px",
+          borderLeft: `2px solid ${errors.agreed ? errorColor : mainColor}`,
+        }}
       >
-        <Checkbox
-          sx={{ mt: "-11px" }}
-          checked={signupState.agreed}
-          onChange={handleTermsChange}
-        />
+        <Checkbox sx={{ mt: "-11px" }} checked={signupState.agreed} onChange={handleTermsChange} />
         <p style={{ margin: 0 }}>
           I agree to the <Link href="#">terms of service</Link>, <Link href="#">privacy policy</Link>,{" "}
           <Link href="#">electronic communications disclosure</Link>, and{" "}
           <Link href="#">electronic funds transfer disclosure</Link>
         </p>
       </Box>
-      {errors.agreed && <FormHelperText error >{errors.agreed}</FormHelperText>}
+      {errors.agreed && <FormHelperText error>{errors.agreed}</FormHelperText>}
       <Button fullWidth variant="contained" sx={{ height: "60px", mt: "28px" }} onClick={validateAndContinue}>
         Continue
       </Button>

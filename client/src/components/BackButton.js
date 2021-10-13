@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import {useTheme} from "@mui/material/styles"
+import { useTheme } from "@mui/material/styles";
 
 export default function BackButton(props) {
   const {
