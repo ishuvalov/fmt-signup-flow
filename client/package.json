@@ -1,6 +1,11 @@
 {
   "name": "create-react-app-express",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Test assessment for Farmtogether. Client.",
+  "author": {
+    "name": "Ilya Shuvalov",
+    "url": "https://github.com/ishuvalov"
+  },
   "license": "MIT",
   "dependencies": {
     "@emotion/react": "^11.4.1",
